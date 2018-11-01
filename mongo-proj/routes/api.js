@@ -3,9 +3,9 @@ const turbo = require('turbo360')({site_id: process.env.TURBO_APP_ID})
 const vertex = require('vertex360')({site_id: process.env.TURBO_APP_ID})
 const router = vertex.router()
 
-const Profile = require('../models/Profile')
+const Student = require('../models/Student')
 
-router.get('/profile', (req, res) => {
+router.get('/student', (req, res) => {
 	let filters = req.query
 	if (req.query.age != null){
 		filters = {
@@ -14,10 +14,10 @@ router.get('/profile', (req, res) => {
 	}
 
 	Profile.find(filters)
-	.then(profiles => {
+	.then(students => {
 		res.json({
 			confirmation: 'success',
-			data: profiles
+			data: students
 		})
 	})
 	.catch(err => {
@@ -29,7 +29,7 @@ router.get('/profile', (req, res) => {
 })
 
 // NON-RESTful
-router.get('/profile/update', (req, res) => {
+router.get('/student/update', (req, res) => {
 	const query = req.query // require: id, key=value
 	const profileId = query.id
 	delete query['id']

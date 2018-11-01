@@ -7,7 +7,7 @@ const School = new mongoose.Schema({
 	state: {type:String, trim:true, default:''},
 })
 
-StudentSchema
+SchoolSchema
   .virtual('url')
   .get(function() {
 	  return '/api/school/' + this._id;
