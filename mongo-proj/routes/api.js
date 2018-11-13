@@ -4,7 +4,12 @@ const vertex = require('vertex360')({site_id: process.env.TURBO_APP_ID})
 const router = vertex.router()
 
 const Student = require('../models/Student')
+const School = require('../models/School')
 
+
+
+
+//GET STUDENT
 router.get('/student', (req, res) => {
 	let filters = req.query
 	if (req.query.age != null){
@@ -13,7 +18,7 @@ router.get('/student', (req, res) => {
 		}
 	}
 
-	Profile.find(filters)
+	Student.find(filters)
 	.then(students => {
 		res.json({
 			confirmation: 'success',
@@ -28,17 +33,36 @@ router.get('/student', (req, res) => {
 	})
 })
 
+//GET SCHOOL
+router.get('/school', (req, res) => {
+	let filters = req.query
+
+	School.find(filters)
+	.then(schools => {
+		res.json({
+			confirmation: 'success',
+			data: schools
+		})
+	})
+	.catch(err => {
+		res.json({
+			confirmation: 'fail',
+			message: err.message
+		})
+	})
+})
+
 // NON-RESTful
 router.get('/student/update', (req, res) => {
 	const query = req.query // require: id, key=value
-	const profileId = query.id
+	const studentId = query.id
 	delete query['id']
 
-	Profile.findByIdAndUpdate(profileId, query, {new:true})
-	.then(profile => {
+	Student.findByIdAndUpdate(studentId, query, {new:true})
+	.then(student => {
 		res.json({
 			confirmation: 'success',
-			data: profile
+			data: student
 		})
 	})
 	.catch(err => {
@@ -49,14 +73,35 @@ router.get('/student/update', (req, res) => {
 	})
 })
 
-router.get('/profile/remove', (req, res) => {
+router.get('/school/update', (req, res) => {
+	const query = req.query // require: id, key=value
+	const schoolId = query.id
+	delete query['id']
+
+	School.findByIdAndUpdate(schoolId, query, {new:true})
+	.then(school => {
+		res.json({
+			confirmation: 'success',
+			data: school
+		})
+	})
+	.catch(err => {
+		res.json({
+			confirmation: 'fail',
+			message: err.message
+		})
+	})
+})
+
+//REMOVE STUDENT
+router.get('/student/remove', (req, res) => {
 	const query = req.query
 
-	Profile.findByIdAndRemove(query.id)
+	Student.findByIdAndRemove(query.id)
 	.then(data => {
 		res.json({
 			confirmation: 'success',
-			data: 'Profile '+query.id+' successfully removed.'
+			data: 'Student '+query.id+' successfully removed.'
 		})
 	})
 	.catch(err => {
@@ -67,32 +112,86 @@ router.get('/profile/remove', (req, res) => {
 	})
 })
 
-router.get('/profile/:id', (req, res) => {
-	const id = req.params.id
+//REMOVE SCHOOL
+router.get('/school/remove', (req, res) => {
+	const query = req.query
 
-	Profile.findById(id)
-	.then(profile => {
+	School.findByIdAndRemove(query.id)
+	.then(data => {
 		res.json({
 			confirmation: 'success',
-			data: profile
+			data: 'School '+query.id+' successfully removed.'
 		})
 	})
 	.catch(err => {
 		res.json({
 			confirmation: 'fail',
-			message: 'Profile ' + id + ' not found.'
+			message: err.message
+		})
+	})
+})
+
+router.get('/student/:id', (req, res) => {
+	const id = req.params.id
+
+	Student.findById(id)
+	.then(student => {
+		res.json({
+			confirmation: 'success',
+			data: student
+		})
+	})
+	.catch(err => {
+		res.json({
+			confirmation: 'fail',
+			message: 'Student ' + id + ' not found.'
+		})
+	})
+})
+
+router.get('/school/:id', (req, res) => {
+	const id = req.params.id
+
+	School.findById(id)
+	.then(school => {
+		res.json({
+			confirmation: 'success',
+			data: school
+		})
+	})
+	.catch(err => {
+		res.json({
+			confirmation: 'fail',
+			message: 'School ' + id + ' not found.'
 		})
 	})
 })
 
 
-router.post('/profile', (req, res) => {
+router.post('/student', (req, res) => {
 
-	Profile.create(req.body)
-	.then(profile => {
+	Student.create(req.body)
+	.then(student => {
 		res.json({
 			confirmation: 'success',
-			data: profile
+			data: student
+		})
+	})
+	.catch(err => {
+		res.json({
+			confirmation: 'fail',
+			message: err.message
+		})
+	})
+})
+
+router.post('/school', (req, res) => {
+
+	School.create(req.body)
+	.then(school => {
+		res.json({
+			confirmation: 'success',
+			data: school
 		})
 	})
 	.catch(err => {

@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
 
-const School = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const SchoolSchema = new mongoose.Schema({
 	name: {type:String, trim:true, default:''}, // 'bob', 'bob ', ' bob'
-	adress: {type:String, default:0},
+	address: {type:String, default:''},
 	city: {type:String, trim:true, default:''},
 	state: {type:String, trim:true, default:''},
 })
@@ -13,5 +15,5 @@ SchoolSchema
 	  return '/api/school/' + this._id;
   });
 
-module.exports = mongoose.model('School', School)
+module.exports = mongoose.model('School', SchoolSchema)
 

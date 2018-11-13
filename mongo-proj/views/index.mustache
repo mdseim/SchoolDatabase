@@ -6,17 +6,28 @@
 	<div class="row">
 
 		<div class="col-md-6 col-md-offset-3" style="text-align:center;margin-bottom:48px">
-			<h1>Welcome to Turbo</h1>
+			<h1>Student School DB</h1>
 			<hr />
 			<div style="background:#f9f9f9;border:1px solid #ddd;border-radius:3px;padding:12px">
 
-				<form action="/api/profile" method="post">
+				<form action="/api/student" method="post">
 					<input type="text" name="firstName" placeholder="First Name" /><br />
 					<input type="text" name="lastName" placeholder="Last Name" /><br />
-					<input type="text" name="team" placeholder="Team" /><br />
-					<input type="text" name="position" placeholder="Position" /><br />
-					<input type="text" name="age" placeholder="Age" /><br />
-					<input type="submit" value="Add Profile">
+					<input type="text" name="school" placeholder="School" /><br />
+					<input type="text" name="grade" placeholder="Grade level" /><br />
+					<input type="text" name="address" placeholder="Address" /><br />
+                	<input type="text" name="city" placeholder="City" /><br />
+                	<input type="text" name="state" placeholder="State" /><br />
+                	<input type="text" name="phone" placeholder="Phone Number" /><br />
+                    <input type="text" name="age" placeholder="Age" /><br />
+					<input type="submit" value="Add Student">
+				</form>
+                <form action="/api/school" method="post">
+					<input type="text" name="name" placeholder="School Name" /><br />
+					<input type="text" name="address" placeholder="Address" /><br />
+					<input type="text" name="city" placeholder="City" /><br />
+					<input type="text" name="state" placeholder="State" /><br />
+                    <input type="submit" value="Add School">
 				</form>
 
 			</div>
